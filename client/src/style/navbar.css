@@ -1,0 +1,52 @@
+/* Navbar general styling */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background-color: var(--blanc);
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  height: 140px; /* Adjust the size of the logo */
+}
+
+.etoile {
+  height: 50px;
+}
+
+.wind-decor {
+  margin-left: 10px;
+  /* Add any other styling for the wind decorations */
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 30px; /* Adjust the gap between elements */
+}
+
+.nav-link {
+  text-decoration: none;
+  font-size: 18px;
+  color: black;
+}
+
+.star {
+  color: purple;
+  font-size: 24px;
+  margin-right: 5px;
+}
+
+.empty-space {
+  width: 50px; /* Adjust the width of the empty spaces as needed */
+}
+
+.login-icon {
+  width: 40px; /* Adjust the size of the login icon */
+}

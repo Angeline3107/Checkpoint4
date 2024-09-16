@@ -1,165 +1,90 @@
-body {
-  font-family: "Lato", sans-serif;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 1.7;
-  color: #eee;
+@import url("https://fonts.googleapis.com/css2?family=Marck+Script&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Irish+Grover&display=swap");
+
+body,
+html {
   margin: 0;
-}
-
-.container {
-  height: 100vh;
-  background-image: url("./assets/images/background.webp");
-  background-size: cover;
-  background-position: top;
-  position: relative;
+  padding: 0;
+  height: 100%;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  padding: 30px;
+  flex-direction: column;
 }
 
-.logo {
-  font-size: 20px;
-  margin-top: 16px;
+:root {
+  --violet: #600bb5;
+  --noir: #000000;
+  --blanc: #ffffff;
+  --gris: #d9d9d9;
+  --border: 15px;
+  --marck: "Marck Script", sans-serif;
+  --irish: "Irish Grover", sans-serif;
 }
 
-.navbar ul {
-  display: flex;
-  gap: 20px;
-  list-style: none;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--marck);
+  font-size: 11px;
 }
 
-.navbar a {
-  text-decoration: none;
-  color: #eee;
-  display: flex;
-  gap: 5px;
-  justify-content: end;
-  margin-top: auto;
-  font-size: 15px;
-}
-
-.navbar a:hover {
-  scale: 110%;
-}
-
-.text-box {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+h1 {
   text-align: center;
+  font-family: var(--irish);
+  font-size: 40px;
+  color: var(--violet);
+  margin-top: 20px;
+  margin-bottom: 10px;
 }
 
-.block-primary {
-  text-transform: uppercase;
-  margin-bottom: 30px;
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-align: center;
+  font-family: var(--irish);
+  font-size: 30px;
+  color: var(--violet);
+  margin-top: 20px;
+  margin-bottom: 10px;
 }
 
-.block-primary-main {
-  font-size: 50px;
-  font-weight: 400;
-  letter-spacing: 5px;
-  animation: blink 12s infinite;
+button {
+  padding: 10px 10px;
+  background-color: var(--noir);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
 }
 
-.block-primary-sub {
-  display: block;
-  font-size: 18px;
-  font-weight: 700;
-  letter-spacing: 7px;
-}
-
-.btn:link,
-.btn:visited {
-  text-transform: uppercase;
-  text-decoration: none;
-  padding: 10px 20px;
-  display: inline-block;
-  border-radius: 100px;
-  transition: all 0.2s;
-  position: relative;
-}
-
-.btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-}
-
-.btn:active {
-  transform: translateY(-1px);
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-}
-
-.btn-white {
-  background-color: #fff;
-  color: #777;
-  font-size: 14px;
-}
-
-footer {
-  position: absolute;
-  top: 85%;
-  left: 75%;
-}
-
-.wcs {
-  text-decoration: none;
-  color: #ff1493ad;
-}
-
-.wcs:hover {
-  border-bottom: solid 1px #ff1493ad;
-}
-
-@media screen and (max-width: 760px) {
-  .logo {
-    display: none;
+/* Media queries pour tablette (768px et moins) */
+@media only screen and (max-width: 768px) {
+  h1 {
+    font-size: 20px;
   }
 
-  .container {
-    justify-content: center;
-  }
-
-  footer {
-    position: absolute;
-    top: 85%;
-    left: 20%;
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-size: 11px;
   }
 }
 
-@media screen and (min-width: 761px) and (max-width: 960px) {
-  footer {
-    position: absolute;
-    top: 85%;
-    left: 60%;
+/* Media queries pour téléphone (480px et moins) */
+@media only screen and (max-width: 480px) {
+  h1 {
+    font-size: 20px;
   }
-}
 
-@keyframes blink {
-  20%,
-  24%,
-  55% {
-    color: #111;
-    text-shadow: none;
-  }
-  0%,
-  19%,
-  21%,
-  23%,
-  25%,
-  54%,
-  56%,
-  100% {
-    text-shadow:
-      0 0 5px #ff1493ad,
-      0 0 15px #eee,
-      0 0 20px #ff1493ad,
-      0 0 40px #a00ac9,
-      0 0 60px #ff0000,
-      0 0 10px #970dc5,
-      0 0 98px #ff0000;
-    color: #fff;
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-size: 11px;
   }
 }

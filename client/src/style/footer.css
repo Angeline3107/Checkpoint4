@@ -1,0 +1,25 @@
+.footer {
+  background-color: var(--violet);
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+}
+
+.footer-item {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  width: 40px;
+}
+
+.footer-item img {
+  height: 30px;
+  width: 30px;
+}
+
+.footer-item.active {
+  background-color: black;
+  border-radius: 50%;
+}
