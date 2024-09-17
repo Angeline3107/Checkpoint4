@@ -1,14 +1,13 @@
 .connexion-main {
   display: flex;
   flex-direction: column;
-  align-items: center; /* Centre horizontalement */
-  justify-content: center; /* Centre verticalement */
-  min-height: 80vh; /* Ajustez selon vos besoins */
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
   text-align: center;
   width: 100%;
 }
 
-/* Styles pour le header */
 .connexion-header {
   margin-bottom: 20px;
   text-align: center;
@@ -19,11 +18,10 @@
 }
 
 .connexion-header p {
-  font-size: 1.2em; /* Ajustez la taille selon vos besoins */
-  line-height: 1.5; /* Ajustez l'interligne selon vos besoins */
+  font-size: 1.2em;
+  line-height: 1.5;
 }
 
-/* Styles pour les champs de saisie */
 .input-container input {
   width: 100%;
   max-width: 300px;
@@ -39,7 +37,6 @@ input:focus {
   outline: none;
 }
 
-/* Styles pour le bouton de connexion */
 button.connexion-button {
   background-color: var(--violet);
   color: var(--blanc);
@@ -50,19 +47,17 @@ button.connexion-button {
   cursor: pointer;
 }
 
-/* Styles pour le lien de mot de passe oublié */
 .forgot-link {
   margin-bottom: 20px;
   color: var(--violet);
 }
 
-/* Styles pour la section d'inscription */
 .register-section {
   margin-top: 20px;
 }
 
 .register-section p {
-  font-size: 1em; /* Ajustez la taille selon vos besoins */
+  font-size: 1em;
 }
 
 button.register-button {

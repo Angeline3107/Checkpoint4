@@ -16,10 +16,6 @@ function Connexion() {
 
   const handleLoginSubmit = (event) => {
     event.preventDefault();
-    // Logique pour gérer la connexion
-    // Les lignes suivantes sont commentées pour éviter l'erreur de console
-    // console.log("Email:", email);
-    // console.log("Password:", password);
   };
 
   return (
