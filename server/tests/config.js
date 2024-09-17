@@ -24,7 +24,6 @@ app.get("/api/mots", async (req, res) => {
     const [rows] = await connection.query("SELECT mot FROM mots");
     res.json(rows.map((row) => row.mot));
   } catch (error) {
-    console.error("Erreur lors de la récupération des mots :", error);
     res.status(500).json({ error: "Erreur lors de la récupération des mots." });
   }
 });
@@ -43,6 +42,4 @@ app.get("/api/phrases", async (req, res) => {
 });
 
 // Démarrer le serveur
-app.listen(port, () => {
-  console.log(`Le serveur fonctionne sur le port ${port}`);
-});
+app.listen(port, () => {});

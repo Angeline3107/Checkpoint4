@@ -51,6 +51,4 @@ app.get("/api/phrases", async (req, res) => {
 });
 
 // Démarrage du serveur
-app.listen(3310, () => {
-  console.log("Serveur en écoute sur le port 3310");
-});
+app.listen(3310, () => {});

@@ -16,7 +16,6 @@ function Test() {
       setCurrentIndex(currentIndex + 1);
       setScore(score + 1); // Exemple : incrémenter le score
     } else {
-      console.log("Fin de la liste des propositions.");
     }
   };
 
@@ -84,9 +83,7 @@ function Test() {
     fetchPropositions();
   }, [optionSource]);
 
-  useEffect(() => {
-    console.log("Index actuel :", currentIndex);
-  }, [currentIndex]);
+  useEffect(() => {}, [currentIndex]);
 
   return (
     <>
