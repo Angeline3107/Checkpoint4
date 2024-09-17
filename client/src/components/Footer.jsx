@@ -18,7 +18,7 @@ function LargeScreenFooter() {
             <NavLink to="/">Accueil</NavLink>
           </li>
           <li>
-            <NavLink to="/games">Test</NavLink>
+            <NavLink to="/test">Test</NavLink>
           </li>
           <li>
             <NavLink to="/register">S'inscrire</NavLink>
@@ -57,8 +57,8 @@ function SmallScreenFooter() {
         <img src={accueil} alt="home" />
       </NavLink>
 
-      <NavLink to="/games" className="footer-item">
-        <img src={manette} alt="games" />
+      <NavLink to="/test" className="footer-item">
+        <img src={manette} alt="test" />
       </NavLink>
 
       <NavLink to="/login" className="footer-item">

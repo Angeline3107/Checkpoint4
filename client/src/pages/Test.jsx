@@ -11,10 +11,14 @@ import {
 function Test() {
   const [score, setScore] = useState(0);
   const [index, setIndex] = useState(0);
-  const [listeProposition, setListeProposition] = useState(["Azerty"]);
+  const [listeProposition, setListeProposition] = useState([]);
 
   const handleValidationClick = () => {
-    // Ajouter votre logique de validation ici
+    if (index < listeProposition.length - 1) {
+      setIndex(index + 1);
+    } else {
+      console.log("Fin de la liste des mots.");
+    }
   };
 
   const handleOptionChange = () => {
@@ -41,8 +45,17 @@ function Test() {
     handleShareClick();
   };
 
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      handleValidationClick();
+      const inputEcriture = document.getElementById("inputEcriture");
+      if (inputEcriture) {
+        inputEcriture.value = ""; // Efface la valeur du champ de saisie
+      }
+    }
+  };
+
   useEffect(() => {
-    // Initialiser le jeu lorsque le composant est monté
     lancerJeu(setScore, setIndex, setListeProposition);
 
     const btnValider = document.getElementById("btnValiderMot");
@@ -56,7 +69,6 @@ function Test() {
       btn.addEventListener("change", handleOptionChange);
     });
 
-    // Nettoyage des écouteurs d'événements lorsque le composant est démonté
     return () => {
       btnValider?.removeEventListener("click", handleValidationClick);
       inputsOptions.forEach((btn) => {
@@ -66,9 +78,9 @@ function Test() {
   }, []);
 
   useEffect(() => {
-    // Mise à jour du résultat et de la proposition
     afficherResultat(score, index);
-    afficherProposition(listeProposition[index] || "Azerty");
+    afficherProposition(listeProposition[index]);
+    console.log("Index actuel :", index);
   }, [score, index, listeProposition]);
 
   return (
@@ -102,12 +114,15 @@ function Test() {
             </label>
           </div>
 
-          <div className="zoneProposition">
-            {listeProposition[index] || "Azerty"}
-          </div>
+          <div className="zoneProposition">{listeProposition[index]}</div>
 
           <div className="zoneSaisie">
-            <input type="text" id="inputEcriture" name="inputEcriture" />
+            <input
+              type="text"
+              id="inputEcriture"
+              name="inputEcriture"
+              onKeyPress={handleKeyPress}
+            />
             <button
               id="btnValiderMot"
               type="button"
@@ -129,7 +144,7 @@ function Test() {
         </div>
       </main>
 
-      <div className="popupBackground">
+      <div className="popupBackground hidden">
         <div className="popup">
           <div>Partagez votre score</div>
           <form noValidate onSubmit={handleFormSubmit}>

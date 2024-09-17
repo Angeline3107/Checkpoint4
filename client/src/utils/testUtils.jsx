@@ -37,13 +37,22 @@ export function gererFormulaire(scoreEmail, nom, email) {
 }
 
 // Fonction pour initialiser le jeu, définissant le score et le mot à taper
-export function lancerJeu(setScore, setIndex, setListeProposition) {
+export async function lancerJeu(setScore, setIndex, setListeProposition) {
   setScore(0);
   setIndex(0);
 
-  // Liste d'exemples de mots (à adapter)
-  const mots = ["Azerty", "Bonjour", "Vitesse", "Clavier", "Apprentissage"];
-  setListeProposition(mots);
+  try {
+    // Appel de l'API pour obtenir les mots
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/words`);
+    if (!response.ok) {
+      throw new Error("Erreur lors de la récupération des mots.");
+    }
+    const mots = await response.json();
+    setListeProposition(mots);
+  } catch (error) {
+    console.error("Erreur:", error);
+    afficherMessageErreur("Impossible de récupérer les mots.");
+  }
 
   // Éventuellement, ajouter des options de phrases si l'option est choisie
   const phrases = [
@@ -51,6 +60,7 @@ export function lancerJeu(setScore, setIndex, setListeProposition) {
     "Je dois apprendre à taper plus vite.",
     "Les chats sont des animaux très agiles.",
   ];
+  VITE_API_URL;
 
   const options = document.querySelectorAll(".optionSource input");
   options.forEach((option) => {
