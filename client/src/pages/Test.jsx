@@ -1,32 +1,31 @@
+// src/components/Test.js
+
 import { useState, useEffect } from "react";
 import "../style/test.css";
-import {
-  afficherResultat,
-  afficherProposition,
-  gererFormulaire,
-  lancerJeu,
-  afficherMessageErreur,
-} from "../utils/testUtils";
+import { gererFormulaire, afficherMessageErreur } from "../utils/testUtils";
 
 function Test() {
   const [score, setScore] = useState(0);
-  const [index, setIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [listeProposition, setListeProposition] = useState([]);
+  const [optionSource, setOptionSource] = useState("1"); // "1" pour mots, "2" pour phrases
 
   const handleValidationClick = () => {
-    if (index < listeProposition.length - 1) {
-      setIndex(index + 1);
+    // Logique pour valider la saisie utilisateur
+    if (currentIndex < listeProposition.length - 1) {
+      setCurrentIndex(currentIndex + 1);
+      setScore(score + 1); // Exemple : incrémenter le score
     } else {
-      console.log("Fin de la liste des mots.");
+      console.log("Fin de la liste des propositions.");
     }
   };
 
-  const handleOptionChange = () => {
-    // Ajouter votre logique de changement d'option ici
+  const handleOptionChange = (event) => {
+    setOptionSource(event.target.value);
   };
 
   const handleShareClick = () => {
-    const scoreEmail = `${score} / ${index}`;
+    const scoreEmail = `${score} / ${currentIndex}`;
     const nom = document.getElementById("nom").value;
     const email = document.getElementById("email").value;
     const mailto = gererFormulaire(scoreEmail, nom, email);
@@ -56,32 +55,38 @@ function Test() {
   };
 
   useEffect(() => {
-    lancerJeu(setScore, setIndex, setListeProposition);
-
-    const btnValider = document.getElementById("btnValiderMot");
-    const inputsOptions = document.querySelectorAll(".optionSource input");
-
-    if (btnValider) {
-      btnValider.addEventListener("click", handleValidationClick);
-    }
-
-    inputsOptions.forEach((btn) => {
-      btn.addEventListener("change", handleOptionChange);
-    });
-
-    return () => {
-      btnValider?.removeEventListener("click", handleValidationClick);
-      inputsOptions.forEach((btn) => {
-        btn.removeEventListener("change", handleOptionChange);
-      });
+    const fetchPropositions = async () => {
+      try {
+        let response;
+        if (optionSource === "1") {
+          // Récupérer les mots
+          response = await fetch(`${import.meta.env.VITE_API_URL}/api/mots`);
+        } else if (optionSource === "2") {
+          // Récupérer les phrases
+          response = await fetch(`${import.meta.env.VITE_API_URL}/api/phrases`);
+        }
+        if (!response.ok) {
+          throw new Error("Erreur lors de la récupération des propositions.");
+        }
+        const data = await response.json();
+        setListeProposition(data);
+        setCurrentIndex(0); // Réinitialiser l'index après récupération
+        setScore(0); // Réinitialiser le score lors du changement d'option
+      } catch (error) {
+        console.error(
+          "Erreur lors de la récupération des propositions :",
+          error
+        );
+        afficherMessageErreur("Impossible de récupérer les propositions.");
+      }
     };
-  }, []);
+
+    fetchPropositions();
+  }, [optionSource]);
 
   useEffect(() => {
-    afficherResultat(score, index);
-    afficherProposition(listeProposition[index]);
-    console.log("Index actuel :", index);
-  }, [score, index, listeProposition]);
+    console.log("Index actuel :", currentIndex);
+  }, [currentIndex]);
 
   return (
     <>
@@ -103,18 +108,30 @@ function Test() {
               name="optionSource"
               id="mots"
               value="1"
-              defaultChecked
+              checked={optionSource === "1"}
+              onChange={handleOptionChange}
             />
             <label className="label" htmlFor="mots">
               MOTS
             </label>
-            <input type="radio" name="optionSource" id="phrases" value="2" />
+            <input
+              type="radio"
+              name="optionSource"
+              id="phrases"
+              value="2"
+              checked={optionSource === "2"}
+              onChange={handleOptionChange}
+            />
             <label className="label" htmlFor="phrases">
               PHRASES
             </label>
           </div>
 
-          <div className="zoneProposition">{listeProposition[index]}</div>
+          <div className="zoneProposition">
+            {listeProposition.length > 0
+              ? listeProposition[currentIndex]
+              : "Chargement..."}
+          </div>
 
           <div className="zoneSaisie">
             <input

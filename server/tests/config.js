@@ -1,27 +1,48 @@
-/* eslint import/no-extraneous-dependencies: ["error", {"devDependencies": true}] */
+// config.js
 
-// Load environment variables from .env file
+const express = require("express");
+const cors = require("cors");
+const port = process.env.APP_PORT || 3310;
+const app = express();
+const connection = require("./database/client"); // Assurez-vous que ce chemin est correct
+
+// Charger les variables d'environnement
 require("dotenv").config();
 
-// Import the supertest library for making HTTP requests
-const request = require("supertest");
+// Middleware CORS pour autoriser les requêtes depuis le client
+app.use(
+  cors({
+    origin: [process.env.CLIENT_URL],
+  })
+);
 
-// Import the Express application from app/config.js
-const app = require("../app/config");
+app.use(express.json());
 
-// Import the database client and tables from database
-const database = require("../database/client");
-const tables = require("../database/tables");
-
-// Restore all mocked functions after each test
-afterEach(() => {
-  jest.restoreAllMocks();
+// Endpoint pour récupérer les mots
+app.get("/api/mots", async (req, res) => {
+  try {
+    const [rows] = await connection.query("SELECT mot FROM mots");
+    res.json(rows.map((row) => row.mot));
+  } catch (error) {
+    console.error("Erreur lors de la récupération des mots :", error);
+    res.status(500).json({ error: "Erreur lors de la récupération des mots." });
+  }
 });
 
-// Close the database connection after all tests have run
-afterAll((done) => {
-  database.end().then(done);
+// Endpoint pour récupérer les phrases
+app.get("/api/phrases", async (req, res) => {
+  try {
+    const [rows] = await connection.query("SELECT phrase FROM phrases");
+    res.json(rows.map((row) => row.phrase));
+  } catch (error) {
+    console.error("Erreur lors de la récupération des phrases :", error);
+    res
+      .status(500)
+      .json({ error: "Erreur lors de la récupération des phrases." });
+  }
 });
 
-// Export the Express application, database client, request and tables objects for use in tests
-module.exports = { app, database, request, tables };
+// Démarrer le serveur
+app.listen(port, () => {
+  console.log(`Le serveur fonctionne sur le port ${port}`);
+});

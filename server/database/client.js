@@ -1,9 +1,14 @@
-// Get variables from .env file for database connection
-const { DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME } = process.env;
+// database/client.js
 
-// Create a connection pool to the database
+// Charger les variables d'environnement
+require("dotenv").config();
+
 const mysql = require("mysql2/promise");
 
+// Récupérer les variables depuis le fichier .env
+const { DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME } = process.env;
+
+// Créer un pool de connexions à la base de données
 const client = mysql.createPool({
   host: DB_HOST,
   port: DB_PORT,
@@ -12,27 +17,25 @@ const client = mysql.createPool({
   database: DB_NAME,
 });
 
-client.checkConnection = () => {
-  // Try to get a connection to the database
-  client
-    .getConnection()
-    .then((connection) => {
-      console.info(`Using database ${DB_NAME}`);
-
-      connection.release();
-    })
-    .catch((error) => {
-      console.warn(
-        "Warning:",
-        "Failed to establish a database connection.",
-        "Please check your database credentials in the .env file if you need a database access."
-      );
-      console.warn(error.message);
-    });
+// Méthode pour vérifier la connexion à la base de données
+client.checkConnection = async () => {
+  try {
+    const connection = await client.getConnection();
+    console.info(`Connecté à la base de données ${DB_NAME}`);
+    connection.release();
+  } catch (error) {
+    console.error(
+      "Échec de la connexion à la base de données :",
+      error.message
+    );
+    process.exit(1); // Quitter l'application si la connexion échoue
+  }
 };
 
-// Store database name into client for further uses
+// Stocker le nom de la base de données pour une utilisation future
 client.databaseName = DB_NAME;
 
-// Ready to export
+// Vérifier la connexion dès le chargement du module
+client.checkConnection();
+
 module.exports = client;
