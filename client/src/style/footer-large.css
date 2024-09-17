@@ -1,3 +1,22 @@
+/* CSS global pour assurer que le contenu occupe la totalité de l'écran */
+body,
+html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+.main-container {
+  min-height: 100vh; /* Le conteneur principal occupe au moins 100% de la hauteur de la fenêtre */
+  display: flex;
+  flex-direction: column;
+}
+
+footer {
+  margin-top: auto; /* Fait en sorte que le footer reste en bas */
+}
+
+/* Footer pour les grands écrans */
 .footer-large {
   background-color: var(--gris);
   padding: 20px;
@@ -50,16 +69,13 @@
   margin: 0;
 }
 
-h3 {
-  font-size: 13px;
-}
-
 /* Footer pour les petits écrans */
 .footer {
   background-color: var(--violet);
   display: flex;
   justify-content: space-around;
   padding: 10px;
+  margin-top: auto; /* Garder le footer en bas */
 }
 
 .footer-item {
@@ -79,4 +95,12 @@ h3 {
 .footer-item.active {
   background-color: black;
   border-radius: 50%;
+}
+
+/* Media queries pour tablette (768px et moins) */
+@media only screen and (max-width: 768px) {
+  .footer-large {
+    flex-direction: column;
+    align-items: center;
+  }
 }

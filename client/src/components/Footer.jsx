@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { useState, useEffect } from "react";
-import "../style/footer.css";
-import "../style/footer-large.css";
+import "../style/footer.css"; // Assure-toi que le fichier est bien importé
+import "../style/footer-large.css"; // Le fichier contient les styles pour les grands écrans
 import accueil from "../assets/images/accueil.png";
 import manette from "../assets/images/manette.png";
 import login from "../assets/images/seconnecter.png";
@@ -88,5 +88,10 @@ export default function Footer() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  return isSmallScreen ? <SmallScreenFooter /> : <LargeScreenFooter />;
+  return (
+    <div className="main-container">
+      {/* Ton contenu principal ici */}
+      {isSmallScreen ? <SmallScreenFooter /> : <LargeScreenFooter />}
+    </div>
+  );
 }
