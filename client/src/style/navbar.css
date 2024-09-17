@@ -5,6 +5,7 @@
   justify-content: space-between;
   padding: 10px 20px;
   background-color: var(--blanc);
+  margin-bottom: 60px;
 }
 
 .logo-container {
@@ -14,15 +15,12 @@
 
 .logo {
   height: 140px; /* Adjust the size of the logo */
+  transition: height 0.3s ease; /* Add smooth transition for logo size */
 }
 
 .etoile {
   height: 50px;
-}
-
-.wind-decor {
-  margin-left: 10px;
-  /* Add any other styling for the wind decorations */
+  transition: height 0.3s ease; /* Add smooth transition for etoile size */
 }
 
 .nav-links {
@@ -37,16 +35,90 @@
   color: black;
 }
 
-.star {
-  color: purple;
-  font-size: 24px;
-  margin-right: 5px;
-}
-
-.empty-space {
-  width: 50px; /* Adjust the width of the empty spaces as needed */
-}
-
 .login-icon {
   width: 40px; /* Adjust the size of the login icon */
+  transition: width 0.3s ease; /* Add smooth transition for icon size */
+}
+
+/* Media query for reducing sizes progressively */
+@media only screen and (max-width: 1200px) {
+  .navbar {
+    padding: 10px 15px;
+  }
+
+  .logo {
+    height: 120px; /* Slightly reduce logo size */
+  }
+
+  .etoile {
+    height: 45px;
+  }
+
+  .nav-link {
+    font-size: 17px; /* Slightly reduce font size */
+  }
+
+  .login-icon {
+    width: 35px;
+  }
+}
+
+@media only screen and (max-width: 992px) {
+  .navbar {
+    padding: 10px;
+  }
+
+  .logo {
+    height: 100px;
+  }
+
+  .etoile {
+    height: 40px;
+  }
+
+  .nav-link {
+    font-size: 16px;
+  }
+
+  .login-icon {
+    width: 30px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+  }
+
+  .logo {
+    height: 80px;
+  }
+
+  .etoile {
+    height: 35px;
+  }
+
+  .nav-links {
+    display: none; /* Hide navigation links on small screens */
+  }
+
+  .login-icon {
+    width: 25px;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .logo {
+    height: 60px; /* Further adjust logo size for very small screens */
+  }
+
+  .etoile {
+    height: 25px;
+  }
+
+  .login-icon {
+    width: 20px;
+  }
 }

@@ -76,17 +76,14 @@ function Test() {
       <header>
         <h1>RapidKeys</h1>
         <h2>L'application pour taper plus vite !</h2>
-        <h3 className="headerDescription">
-          Choisissez votre niveau de difficulté: Mots ou phrases. Puis, tapez la
-          proposition qui s'affiche dans le champ.
-        </h3>
       </header>
 
       <main className="main">
         <div className="zoneOptions">
-          <p>
-            Choisissez votre option et tapez la proposition qui s'affiche dans
-            le champ en-dessous.
+          <p className="headerDescription">
+            Choisissez votre niveau de difficulté:
+            <br /> Mots ou phrases. <br />
+            Puis, tapez la proposition qui s'affiche dans le champ.
           </p>
           <div className="optionSource">
             <input
@@ -96,9 +93,13 @@ function Test() {
               value="1"
               defaultChecked
             />
-            <label htmlFor="mots">Mots</label>
+            <label className="label" htmlFor="mots">
+              MOTS
+            </label>
             <input type="radio" name="optionSource" id="phrases" value="2" />
-            <label htmlFor="phrases">Phrases</label>
+            <label className="label" htmlFor="phrases">
+              PHRASES
+            </label>
           </div>
 
           <div className="zoneProposition">
