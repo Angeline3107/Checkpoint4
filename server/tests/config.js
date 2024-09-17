@@ -1,13 +1,12 @@
 const express = require("express");
 const cors = require("cors");
-const path = require("path");
 require("dotenv").config();
 
 const port = process.env.APP_PORT || 3310;
 const app = express();
 
 // Vérifie que le fichier client.js existe bien et ajoute l'extension si nécessaire
-const connection = require("./database/client.js");
+const connection = require("../database/client");
 
 // Middleware CORS pour autoriser les requêtes depuis le client
 app.use(
@@ -24,7 +23,6 @@ app.get("/api/mots", async (req, res) => {
     const [rows] = await connection.query("SELECT mot FROM mots");
     res.json(rows.map((row) => row.mot));
   } catch (error) {
-    console.error("Erreur lors de la récupération des mots :", error);
     res.status(500).json({ error: "Erreur lors de la récupération des mots." });
   }
 });
@@ -43,6 +41,4 @@ app.get("/api/phrases", async (req, res) => {
 });
 
 // Démarrer le serveur
-app.listen(port, () => {
-  console.log(`Serveur démarré sur le port ${port}`);
-});
+app.listen(port, () => {});
