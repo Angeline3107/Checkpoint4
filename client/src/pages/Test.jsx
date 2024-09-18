@@ -1,5 +1,3 @@
-// src/components/Test.js
-
 import { useState, useEffect } from "react";
 import "../style/test.css";
 import { gererFormulaire, afficherMessageErreur } from "../utils/testUtils";
@@ -9,13 +7,14 @@ function Test() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [listeProposition, setListeProposition] = useState([]);
   const [optionSource, setOptionSource] = useState("1"); // "1" pour mots, "2" pour phrases
+  const [chronoCommence, setChronoCommence] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(60); // 60 secondes de chrono
+  const [chronoFini, setChronoFini] = useState(false); // Indicateur que le temps est écoulé
 
   const handleValidationClick = () => {
-    // Logique pour valider la saisie utilisateur
-    if (currentIndex < listeProposition.length - 1) {
+    if (!chronoFini && currentIndex < listeProposition.length - 1) {
       setCurrentIndex(currentIndex + 1);
-      setScore(score + 1); // Exemple : incrémenter le score
-    } else {
+      setScore(score + 1);
     }
   };
 
@@ -44,7 +43,10 @@ function Test() {
   };
 
   const handleKeyPress = (event) => {
-    if (event.key === "Enter") {
+    if (!chronoCommence) {
+      setChronoCommence(true); // Démarre le chrono à la première frappe
+    }
+    if (event.key === "Enter" && !chronoFini) {
       handleValidationClick();
       const inputEcriture = document.getElementById("inputEcriture");
       if (inputEcriture) {
@@ -58,10 +60,8 @@ function Test() {
       try {
         let response;
         if (optionSource === "1") {
-          // Récupérer les mots
           response = await fetch(`${import.meta.env.VITE_API_URL}/api/mots`);
         } else if (optionSource === "2") {
-          // Récupérer les phrases
           response = await fetch(`${import.meta.env.VITE_API_URL}/api/phrases`);
         }
         if (!response.ok) {
@@ -69,8 +69,8 @@ function Test() {
         }
         const data = await response.json();
         setListeProposition(data);
-        setCurrentIndex(0); // Réinitialiser l'index après récupération
-        setScore(0); // Réinitialiser le score lors du changement d'option
+        setCurrentIndex(0);
+        setScore(0);
       } catch (error) {
         console.error(
           "Erreur lors de la récupération des propositions :",
@@ -83,7 +83,15 @@ function Test() {
     fetchPropositions();
   }, [optionSource]);
 
-  useEffect(() => {}, [currentIndex]);
+  useEffect(() => {
+    if (chronoCommence && timeLeft > 0) {
+      const timer = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
+      return () => clearTimeout(timer);
+    } else if (timeLeft === 0) {
+      console.log("Le temps est écoulé !");
+      setChronoFini(true); // Marque la fin du chrono
+    }
+  }, [chronoCommence, timeLeft]);
 
   return (
     <>
@@ -95,9 +103,7 @@ function Test() {
       <main className="main">
         <div className="zoneOptions">
           <p className="headerDescription">
-            Choisissez votre niveau de difficulté:
-            <br /> Mots ou phrases. <br />
-            Puis, tapez la proposition qui s'affiche dans le champ.
+            Choisissez votre niveau de difficulté: <br /> Mots ou phrases.
           </p>
           <div className="optionSource">
             <input
@@ -107,6 +113,7 @@ function Test() {
               value="1"
               checked={optionSource === "1"}
               onChange={handleOptionChange}
+              disabled={chronoFini} // Désactive le changement d'option quand le chrono est terminé
             />
             <label className="label" htmlFor="mots">
               MOTS
@@ -118,6 +125,7 @@ function Test() {
               value="2"
               checked={optionSource === "2"}
               onChange={handleOptionChange}
+              disabled={chronoFini} // Désactive le changement d'option quand le chrono est terminé
             />
             <label className="label" htmlFor="phrases">
               PHRASES
@@ -125,9 +133,11 @@ function Test() {
           </div>
 
           <div className="zoneProposition">
-            {listeProposition.length > 0
-              ? listeProposition[currentIndex]
-              : "Chargement..."}
+            {chronoFini
+              ? "Le temps est écoulé !"
+              : listeProposition.length > 0
+                ? listeProposition[currentIndex]
+                : "Chargement..."}
           </div>
 
           <div className="zoneSaisie">
@@ -136,11 +146,13 @@ function Test() {
               id="inputEcriture"
               name="inputEcriture"
               onKeyPress={handleKeyPress}
+              disabled={chronoFini} // Désactive la saisie lorsque le chrono est terminé
             />
             <button
               id="btnValiderMot"
               type="button"
               onClick={handleValidationClick}
+              disabled={chronoFini} // Désactive le bouton de validation lorsque le chrono est terminé
             >
               Valider
             </button>
@@ -148,6 +160,9 @@ function Test() {
 
           <div className="zoneScore">
             Votre score : <span>{score}</span>
+          </div>
+          <div className="zoneChrono">
+            Temps restant : <span>{timeLeft}</span> secondes
           </div>
         </div>
 
@@ -157,28 +172,6 @@ function Test() {
           </button>
         </div>
       </main>
-
-      <div className="popupBackground hidden">
-        <div className="popup">
-          <div>Partagez votre score</div>
-          <form noValidate onSubmit={handleFormSubmit}>
-            <label htmlFor="nom">Votre nom</label>
-            <input type="text" id="nom" name="nom" placeholder="Votre nom" />
-            <label htmlFor="email">
-              Avec qui voulez-vous partager votre score ?
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              placeholder="nom@domaine.com"
-            />
-            <button type="submit" id="btnEnvoyerMail">
-              Envoyer
-            </button>
-          </form>
-        </div>
-      </div>
     </>
   );
 }
