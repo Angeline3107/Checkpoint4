@@ -162,3 +162,125 @@
     gap: 5px;
   }
 }
+/* Styles pour les écrans de moins de 480px */
+@media only screen and (max-width: 480px) {
+  .zoneOptions {
+    width: 100%;
+    height: auto;
+    padding: 10px;
+    margin: 10px;
+    font-size: 0.9em;
+  }
+
+  .zoneProposition,
+  .zoneSaisie {
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+  }
+
+  .optionSource {
+    flex-direction: column;
+    margin: 10px 0;
+  }
+
+  .popup {
+    width: 90%;
+    padding: 15px;
+  }
+
+  .popup input,
+  .popup button {
+    font-size: 0.9em;
+  }
+
+  button {
+    font-size: 0.9em;
+  }
+
+  .zonePartage button {
+    font-size: 1em;
+  }
+}
+
+/* Styles pour les écrans de moins de 768px */
+@media only screen and (max-width: 768px) {
+  .zoneOptions {
+    width: 100%;
+    height: auto;
+    padding: 15px;
+    margin: 15px auto;
+    font-size: 1em;
+  }
+
+  .zoneProposition,
+  .zoneSaisie {
+    width: 100%;
+    height: auto;
+    margin-bottom: 15px;
+  }
+
+  .optionSource {
+    flex-direction: column;
+    margin: 15px 0;
+  }
+
+  .popup {
+    width: 80%;
+    padding: 20px;
+  }
+
+  .popup input,
+  .popup button {
+    font-size: 1em;
+  }
+
+  button {
+    font-size: 1em;
+  }
+
+  .zonePartage button {
+    font-size: 1.1em;
+  }
+}
+
+/* Styles pour les écrans de moins de 870px */
+@media only screen and (max-width: 870px) {
+  .zoneOptions {
+    width: 90%;
+    height: auto;
+    padding: 20px;
+    margin: 20px auto;
+    font-size: 1.1em;
+  }
+
+  .zoneProposition,
+  .zoneSaisie {
+    width: 90%;
+    height: auto;
+    margin-bottom: 20px;
+  }
+
+  .optionSource {
+    flex-direction: column;
+    margin: 20px 0;
+  }
+
+  .popup {
+    width: 70%;
+    padding: 25px;
+  }
+
+  .popup input,
+  .popup button {
+    font-size: 1.1em;
+  }
+
+  button {
+    font-size: 1.1em;
+  }
+
+  .zonePartage button {
+    font-size: 1.2em;
+  }
+}
