@@ -10,11 +10,17 @@ function Test() {
   const [chronoCommence, setChronoCommence] = useState(false);
   const [timeLeft, setTimeLeft] = useState(60); // 60 secondes de chrono
   const [chronoFini, setChronoFini] = useState(false); // Indicateur que le temps est écoulé
+  const [userInput, setUserInput] = useState(""); // Pour stocker l'entrée de l'utilisateur
 
   const handleValidationClick = () => {
     if (!chronoFini && currentIndex < listeProposition.length - 1) {
+      // Vérifie si le mot est bien orthographié
+      if (userInput.trim() === listeProposition[currentIndex].trim()) {
+        setScore(score + 1); // Incrémente le score si le mot est correct
+      }
+      // Passe au mot suivant
       setCurrentIndex(currentIndex + 1);
-      setScore(score + 1);
+      setUserInput(""); // Réinitialise l'entrée utilisateur
     }
   };
 
@@ -48,10 +54,6 @@ function Test() {
     }
     if (event.key === "Enter" && !chronoFini) {
       handleValidationClick();
-      const inputEcriture = document.getElementById("inputEcriture");
-      if (inputEcriture) {
-        inputEcriture.value = ""; // Efface la valeur du champ de saisie
-      }
     }
   };
 
@@ -145,6 +147,8 @@ function Test() {
               type="text"
               id="inputEcriture"
               name="inputEcriture"
+              value={userInput}
+              onChange={(e) => setUserInput(e.target.value)} // Met à jour l'entrée utilisateur
               onKeyPress={handleKeyPress}
               disabled={chronoFini} // Désactive la saisie lorsque le chrono est terminé
             />
