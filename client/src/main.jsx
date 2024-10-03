@@ -5,6 +5,7 @@ import App from "./App";
 import Test from "./pages/Test";
 import Accueil from "./pages/Accueil";
 import Login from "./pages/SeConnecter";
+import Register from "./pages/Sinscrire";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
       {
         path: "login",
         element: <Login />,
+      },
+      {
+        path: "register",
+        element: <Register />,
       },
     ],
   },

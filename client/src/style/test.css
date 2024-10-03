@@ -1,6 +1,24 @@
 .headerDescription {
   color: var(--blanc);
 }
+.highlight-score {
+  font-size: 2em;
+  color: red;
+  font-weight: bold;
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
 
 .zoneOptions {
   margin-bottom: 20px;

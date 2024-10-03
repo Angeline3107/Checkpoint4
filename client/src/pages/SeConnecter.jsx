@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { NavLink } from "react-router-dom";
 import "../style/connexion.css";
 import sinscrire from "../assets/images/sinscrire.png";
 
@@ -62,9 +63,11 @@ function Connexion() {
             Pas encore inscrit ? Pas de panique, tu n'es qu'à un clic d'entrer
             dans le club des pros du clavier ! 😎
           </p>
-          <button type="button" className="register-button">
-            <img src={sinscrire} alt="Register Icon" />
-          </button>
+          <NavLink to="/register">
+            <button type="button" className="register-button">
+              <img src={sinscrire} alt="Register Icon" />
+            </button>
+          </NavLink>
         </div>
       </main>
     </>

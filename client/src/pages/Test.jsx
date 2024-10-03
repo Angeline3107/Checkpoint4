@@ -13,7 +13,7 @@ function Test() {
   const [userInput, setUserInput] = useState(""); // Pour stocker l'entrée de l'utilisateur
 
   const handleValidationClick = () => {
-    if (!chronoFini && currentIndex < listeProposition.length - 1) {
+    if (!chronoFini && currentIndex < listeProposition.length) {
       // Vérifie si le mot est bien orthographié
       if (userInput.trim() === listeProposition[currentIndex].trim()) {
         setScore(score + 1); // Incrémente le score si le mot est correct
@@ -29,7 +29,7 @@ function Test() {
   };
 
   const handleShareClick = () => {
-    const scoreEmail = `${score} / ${currentIndex}`;
+    const scoreEmail = `${score} / ${listeProposition.length}`;
     const nom = document.getElementById("nom").value;
     const email = document.getElementById("email").value;
     const mailto = gererFormulaire(scoreEmail, nom, email);
@@ -94,6 +94,12 @@ function Test() {
       setChronoFini(true); // Marque la fin du chrono
     }
   }, [chronoCommence, timeLeft]);
+
+  // Calcul du pourcentage
+  const pourcentage =
+    listeProposition.length > 0
+      ? Math.round((score / listeProposition.length) * 100)
+      : 0;
 
   return (
     <>
@@ -163,7 +169,10 @@ function Test() {
           </div>
 
           <div className="zoneScore">
-            Votre score : <span>{score}</span>
+            Votre score :{" "}
+            <span className={chronoFini ? "highlight-score" : ""}>
+              {score} / {listeProposition.length} ({pourcentage}%)
+            </span>
           </div>
           <div className="zoneChrono">
             Temps restant : <span>{timeLeft}</span> secondes
