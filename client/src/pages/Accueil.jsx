@@ -23,11 +23,13 @@ function Accueil() {
         n'aura plus de secret pour vous.
       </div>
       <div className="connexion-inscription">
-        <img
-          className="img-inscription"
-          src={sinscrire}
-          alt="logo d'inscription"
-        />
+        <NavLink to="/register">
+          <img
+            className="img-inscription"
+            src={sinscrire}
+            alt="logo d'inscription"
+          />
+        </NavLink>
         <NavLink to="/login">
           <img
             className="img-connexion"

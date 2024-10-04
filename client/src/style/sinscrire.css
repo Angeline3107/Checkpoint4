@@ -1,0 +1,53 @@
+.connexion-header2 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.connexion-main2 {
+  min-height: 80vh;
+  text-align: center;
+  width: 100%;
+}
+
+.input-container2 input {
+  width: 100%;
+  max-width: 300px;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 15px;
+  border: 2px solid var(--gris);
+  background-color: rgba(96, 11, 181, 0.25);
+}
+
+button.register-button {
+  color: var(--blanc);
+  padding: 10px 20px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.register-section2 {
+  margin-top: 20px;
+}
+
+button.register-button2 {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  position: relative;
+}
+
+button.register-button2 img {
+  width: 130px;
+  height: auto;
+  border: none;
+  display: block;
+  transition: transform 0.3s ease;
+  margin-top: 30px;
+}
+
+button.register-button2:hover img {
+  transform: scale(1.2);
+}
