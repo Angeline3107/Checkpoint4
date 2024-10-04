@@ -43,11 +43,6 @@ function Test() {
     }
   };
 
-  const handleFormSubmit = (event) => {
-    event.preventDefault();
-    handleShareClick();
-  };
-
   const handleKeyPress = (event) => {
     if (!chronoCommence) {
       setChronoCommence(true); // Démarre le chrono à la première frappe
@@ -90,7 +85,6 @@ function Test() {
       const timer = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
       return () => clearTimeout(timer);
     } else if (timeLeft === 0) {
-      console.log("Le temps est écoulé !");
       setChronoFini(true); // Marque la fin du chrono
     }
   }, [chronoCommence, timeLeft]);
