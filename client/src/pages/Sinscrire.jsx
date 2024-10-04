@@ -8,40 +8,22 @@ function Sinscrire() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [dateOfBirth, setDateOfBirth] = useState("");
-
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
-  };
-
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
-  };
-
-  const handleConfirmPasswordChange = (event) => {
-    setConfirmPassword(event.target.value);
-  };
-
-  const handleDateOfBirthChange = (event) => {
-    setDateOfBirth(event.target.value);
-  };
+  const [errorMessage, setErrorMessage] = useState(""); // État pour gérer le message d'erreur
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
     if (password !== confirmPassword) {
-      alert("Les mots de passe ne correspondent pas !");
+      setErrorMessage("Les mots de passe ne correspondent pas !");
       return;
     }
 
-    // Ici, vous pouvez ajouter la logique pour gérer les données,
-    // comme l'afficher dans la console ou les stocker localement
-    console.log("Email:", email);
-    console.log("Password:", password);
-    console.log("Date of Birth:", dateOfBirth);
-    // Réinitialiser le formulaire après la soumission si nécessaire
+    // Si tout va bien, réinitialiser le formulaire
     setEmail("");
     setPassword("");
     setConfirmPassword("");
     setDateOfBirth("");
+    setErrorMessage(""); // Effacer le message d'erreur en cas de succès
   };
 
   return (
@@ -57,7 +39,7 @@ function Sinscrire() {
               type="email"
               placeholder="Enter your mail"
               value={email}
-              onChange={handleEmailChange}
+              onChange={(e) => setEmail(e.target.value)}
               required
             />
           </div>
@@ -66,7 +48,7 @@ function Sinscrire() {
               type="password"
               placeholder="Enter password"
               value={password}
-              onChange={handlePasswordChange}
+              onChange={(e) => setPassword(e.target.value)}
               required
             />
           </div>
@@ -75,7 +57,7 @@ function Sinscrire() {
               type="password"
               placeholder="Confirm password"
               value={confirmPassword}
-              onChange={handleConfirmPasswordChange}
+              onChange={(e) => setConfirmPassword(e.target.value)}
               required
             />
           </div>
@@ -84,10 +66,13 @@ function Sinscrire() {
               type="date"
               placeholder="Date of birth"
               value={dateOfBirth}
-              onChange={handleDateOfBirthChange}
+              onChange={(e) => setDateOfBirth(e.target.value)}
               required
             />
           </div>
+
+          {/* Affichage du message d'erreur si nécessaire */}
+          {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
 
           <button type="submit" className="register-button">
             S'inscrire
